@@ -1,6 +1,6 @@
 /*	
  * @author	D4ddy-LiLd4rk
- * @source	
+ * @source	https://github.com/D4ddy-LiLd4rk/AdventureLand
  */
 
 function on_cm(name, data)

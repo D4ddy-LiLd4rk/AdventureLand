@@ -1,3 +1,7 @@
+/*	
+ * @author	D4ddy-LiLd4rk
+ * @source	https://github.com/D4ddy-LiLd4rk/AdventureLand
+ */
 
 let healthPotion = 50;
 let manaPoition = 100;
