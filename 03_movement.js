@@ -38,6 +38,7 @@ function walkHalfwayToTarget(target) {
 }
 
 function walkToTargetWithinAttackRange(target) {
+  //TODO: walk towards target to hit it (useful for ranged chars)
   //character.range
   move(
     character.x + (target.x - character.x) / 2,

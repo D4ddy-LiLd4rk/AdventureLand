@@ -4,7 +4,7 @@
  */
 
 function attackMonster(monster) {
-  if (!attackActive || character.rip || is_moving(character)) return;
+  if (!parent.attackActive || character.rip || is_moving(character)) return;
 
   var target = get_targeted_monster();
   if (!target) {
@@ -17,7 +17,7 @@ function attackMonster(monster) {
   }
 
   if (!in_attack_range(target)) {
-    if (walkingActive) {
+    if (parent.walkingActive) {
       walkHalfwayToTarget(target);
       // Walk half the distance
     }

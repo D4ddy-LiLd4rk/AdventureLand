@@ -3,25 +3,95 @@
  * @source	https://github.com/D4ddy-LiLd4rk/AdventureLand
  */
 
+let movingToChar = false;
+let movingToBank = false;
+
 function init() {
-  
+
 }
 
-function on_cm(name, data)
-//needs a timer to see when the last movement was sent
-{
-  //game_log("Received a code message from: "+name);
+setInterval(function doMerchantStuff() {
+  if (isInsideBank()) {
+    depositGold();
+    depositItems();
+  }
+}, 2000); //loop every 2 seconds
 
-  //check if one of our adventurers called for the merchant
-  if (name == Characters.Warrior || name == Characters.Mage || name == Characters.Ranger || name == Characters.merchant) {
-    //if not already walking or not already there, start walking
-    if (!is_moving(character) || !get_player(name)) {
-      smart_move({ x: data.x, y: data.y, map: data.map });
-    }
+function on_cm(name, data) {
+  if (!is_moving(character) || !isMovingToChar() || !get_player(name)) {
+    closeMerchStand();
+    smart_move({ x: data.x, y: data.y, map: data.map });
+    moveToChar();
   }
 
-  //once we've reached the adventurer, walk back to town with the loot
   if (data == "done") {
-    travelTo("bank");
+    travelTo("bank", true);
+    moveToBank();
+  }
+}
+
+function openMerchStand() {
+  if (!isMerchStandActive()) {
+    parent.open_merchant(0);
+  }
+}
+
+function closeMerchStand() {
+  if (isMerchStandActive()) {
+    parent.close_merchant(0);
+  }
+}
+
+function toggleMerchStand() {
+  if (isMerchStandActive()) {
+    parent.close_merchant(0);
+  } else {
+    parent.open_merchant(0);
+  }
+}
+
+function isMerchStandActive() {
+  return !(character.stand === false);
+}
+
+function moveToChar() {
+  movingToChar = true;
+  movingToBank = false;
+}
+
+function moveToBank() {
+  movingToBank = true;
+  movingToChar = false;
+}
+
+function stoppedMoving() {
+  movingToChar = false;
+  movingToBank = false;
+}
+
+function isMovingToChar() {
+  return movingToChar;
+}
+
+function isMovingToBank() {
+  return movingToBank;
+}
+
+function isInsideBank() {
+  return character.map === "bank";
+}
+
+function depositGold() {
+  if (character.gold > 100000) {
+    bank_deposit(character.gold - 100000);
+  }
+}
+
+function depositItems() {
+  if (character.esize === 42) return; //empty inventory
+  for (item in character.items) {
+    if (item == 0) continue;
+    if (!character.items[item]) continue;
+    bank_store(item);
   }
 }

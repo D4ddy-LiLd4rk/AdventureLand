@@ -36,11 +36,8 @@ setInterval(function () {
  |  Merchant Functions
  *----------------------*/
 
-setInterval(function twoSeconds() {
-
-  //check if we have money for the merchant
+setInterval(function callMerchant() {
   if (hasGoldOrItems() && !is_moving(Characters.Merchant)) {
-    //tell the merchant to come
     send_cm(Characters.Merchant, {
       x: character.real_x,
       y: character.real_y,
@@ -55,7 +52,7 @@ setInterval(function twoSeconds() {
 
   };
 
-}, 2000); //loop every 2 seconds
+}, 60000); //loop every 2 seconds
 
 function hasGoldOrItems() {
   return ((character.gold > goldThreshold) || (character.esize + getNumberOfPotions < 42));
