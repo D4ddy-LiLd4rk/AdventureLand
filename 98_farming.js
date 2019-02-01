@@ -3,23 +3,20 @@
  * @source	https://github.com/D4ddy-LiLd4rk/AdventureLand
  */
 
-load_code(2);  //constants
-load_code(3);  //movement
-load_code(4);  //attack
-load_code(5);  //consumables
-load_code(6);  //skills
-load_code(99); //utils
+let attackActive = false;
+let walkingActive = false;
 
 let goldThreshold = 75000;
 let goldTransferAmount = 5000;
 
 setInterval(function () {
 
+  //initialize character class specific resources
+  init();
+
   checkHealthAndManaPotionsInInventory();
   restoreHealthOrMana();
   loot();
-  //sendGoldToMerchant();
-  //sendItemsToMerchant();
 
   let monster = {
     // max_att: max attack

@@ -11,6 +11,16 @@ var Characters;
   Characters["Merchant"] = "D4ddy004";
 })(Characters || (Characters = {}));
 
+var CharacterTypes;
+(function (CharacterTypes) {
+  CharacterTypes["Mage"] = "mage";
+  CharacterTypes["Merchant"] = "merchant";
+  CharacterTypes["Priest"] = "priest";
+  CharacterTypes["Ranger"] = "ranger";
+  CharacterTypes["Rogue"] = "rogue";
+  CharacterTypes["Warrior"] = "warrior";
+})(CharacterTypes || (CharacterTypes = {}));
+
 var ItemTypes;
 (function (ItemTypes) {
   ItemTypes["Activator"] = "activator";

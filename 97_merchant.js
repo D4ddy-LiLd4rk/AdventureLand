@@ -3,6 +3,10 @@
  * @source	https://github.com/D4ddy-LiLd4rk/AdventureLand
  */
 
+function init() {
+  
+}
+
 function on_cm(name, data)
 //needs a timer to see when the last movement was sent
 {

@@ -3,9 +3,6 @@
  * @source	https://github.com/D4ddy-LiLd4rk/AdventureLand
  */
 
-let attackActive = true;
-let walkingActive = true;
-
 function attackMonster(monster) {
   if (!attackActive || character.rip || is_moving(character)) return;
 
