@@ -3,7 +3,7 @@
  * @source	https://github.com/D4ddy-LiLd4rk/AdventureLand
  */
 
-export var Characters;
+var Characters;
 (function (Characters) {
   Characters["Warrior"] = "D4ddy001";
   Characters["Mage"] = "D4ddy002";
@@ -11,7 +11,7 @@ export var Characters;
   Characters["Merchant"] = "D4ddy004";
 })(Characters || (Characters = {}));
 
-export var ItemTypes;
+var ItemTypes;
 (function (ItemTypes) {
   ItemTypes["Activator"] = "activator";
   ItemTypes["Amulet"] = "amulet";
@@ -61,7 +61,7 @@ export var ItemTypes;
   ItemTypes["XP"] = "xp";
 })(ItemTypes || (ItemTypes = {}));
 
-export var JewelryTypes;
+var JewelryTypes;
 (function (JewelryTypes) {
   JewelryTypes["Amulet"] = "amulet";
   JewelryTypes["Earring"] = "earring";
@@ -69,7 +69,7 @@ export var JewelryTypes;
   JewelryTypes["Ring"] = "ring";
 })(JewelryTypes || (JewelryTypes = {}));
 
-export var ArmorTypes;
+var ArmorTypes;
 (function (ArmorTypes) {
   ArmorTypes["Belt"] = "belt";
   ArmorTypes["Cape"] = "Cape";
@@ -81,7 +81,7 @@ export var ArmorTypes;
   ArmorTypes["Shoes"] = "shoes";
 })(ArmorTypes || (ArmorTypes = {}));
 
-export var WeaponTypes;
+var WeaponTypes;
 (function (WeaponTypes) {
   WeaponTypes["Axe"] = "axe";
   WeaponTypes["Basher"] = "basher";
@@ -98,7 +98,7 @@ export var WeaponTypes;
   WeaponTypes["WonderBlade"] = "wblade";
 })(WeaponTypes || (WeaponTypes = {}));
 
-export var DamageTypes;
+var DamageTypes;
 (function (DamageTypes) {
   DamageTypes["Heal"] = "heal";
   DamageTypes["Magical"] = "magical";
