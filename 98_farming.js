@@ -63,7 +63,8 @@ function hasGoldOrItems() {
 
 function sendGoldToMerchant() {
   if (character.gold > goldThreshold) {
-    send_gold(Characters.Merchant, goldTransferAmount);
+    send_gold(Characters.Merchant, 
+      goldTransferAmount < getDifference(character.gold, goldThreshold) ? getDifference(character.gold, goldThreshold): goldTransferAmount);
   }
 }
 
