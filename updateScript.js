@@ -22,7 +22,8 @@ const allFiles = ["01_master.js",
 
 parent.api_call("list_codes", {
   callback: function () {
-    for (let file in allFiles) {
+    game_log("Updating from GitHub/D4ddy-LiLd4rk...");
+    for (let file of allFiles) {
       let request = new XMLHttpRequest();
       request.open("GET", baseURL + file);
       request.onreadystatechange = function () {
@@ -34,6 +35,7 @@ parent.api_call("list_codes", {
             code: request.responseText
           }
           parent.api_call("save_code", data);
+          game_log("Saved to slot [" + codeObject.name + "] as " + codeObject.slot);
         }
       }
       request.send();
