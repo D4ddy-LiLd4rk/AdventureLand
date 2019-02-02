@@ -18,7 +18,7 @@ setInterval(function doMerchantStuff() {
 }, 2000); //loop every 2 seconds
 
 function on_cm(name, data) {
-  if (!is_moving(character) || !isMovingToChar() || !get_player(name)) {
+  if (!is_moving(character) || !get_player(name)) {
     closeMerchStand();
     smart_move({ x: data.x, y: data.y, map: data.map });
     moveToChar();
@@ -51,7 +51,7 @@ function toggleMerchStand() {
 }
 
 function isMerchStandActive() {
-  return !(character.stand === false);
+  return character.stand !== false;
 }
 
 function moveToChar() {
@@ -78,6 +78,7 @@ function isMovingToBank() {
 }
 
 function isInsideBank() {
+  //!character.bank
   return character.map === "bank";
 }
 

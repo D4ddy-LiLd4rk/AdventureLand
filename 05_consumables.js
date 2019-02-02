@@ -7,6 +7,9 @@ let healthPotion = 50;
 let manaPoition = 100;
 let lastPotion = new Date(0);
 
+let healthThreshold = 0.4;
+let manaThreshold = 0.2;
+
 function restoreHealthOrMana() {
   if (safeties && mssince(lastPotion) < 600) return;
   var used = false;
@@ -17,7 +20,8 @@ function restoreHealthOrMana() {
 }
 
 function useHealthPotion() {
-  if (getDifference(character.max_hp, character.hp) >= healthPotion) {
+  if (((getDifference(character.max_hp, character.hp) >= healthPotion) || isBelowPercent(character.hp, character.max_hp, healthThreshold))
+    && isAbovePercent(character.mp, character.max_mp, manaThreshold)) {
     use_skill("use_hp", character);
     return true;
   }

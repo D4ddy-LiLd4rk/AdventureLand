@@ -6,6 +6,9 @@
 let attackActive = false;
 let walkingActive = false;
 
+let isPartyLeader = false;
+let partyLeader = "";
+
 let goldThreshold = 75000;
 let goldTransferAmount = 5000;
 
@@ -68,7 +71,11 @@ function sendItemsToMerchant() {
   if (character.esize === 42) return; //empty inventory
   for (var index in character.items) {
     if (character.items[index] && parent.G.items[character.items[index].name].type !== ItemTypes.Potion) {
-      send_item(Characters.Merchant, index);
+      if (character.items[index].q) {
+        send_item(Characters.Merchant, index, character.items[index].q);
+      } else {
+        send_item(Characters.Merchant, index);
+      }
     }
   }
 }

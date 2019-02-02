@@ -7,5 +7,11 @@ function init() {
 
   parent.attackActive = true;
   parent.walkingActive = true;
+  parent.isPartyLeader = true;
+  parent.partyLeader = Characters.Warrior; //character.name
   
 }
+
+setInterval(function callForParty() {
+  createParty();
+}, 3600000); //loop every hour
