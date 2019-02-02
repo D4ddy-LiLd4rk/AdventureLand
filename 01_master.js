@@ -9,6 +9,7 @@ load_code(4);  //attack
 load_code(5);  //consumables
 load_code(6);  //skills
 load_code(99); //utils
+load_code(100); //acc_contribute
 
 loadFarmingOrMerchant();
 
