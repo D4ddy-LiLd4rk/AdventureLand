@@ -62,8 +62,10 @@ function checkHealthAndManaPotionsInInventory() {
 
 function setPotionValues(type, amount) {
   if (type === "hp") {
+    if (character.max_hp < amount) return;
     healthPotion = amount;
   } else if (type === "mp") {
+    if (character.max_mp < amount) return;
     manaPoition = amount;
   }
 }
