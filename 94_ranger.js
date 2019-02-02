@@ -9,3 +9,7 @@ function init() {
   parent.walkingActive = false;
   
 }
+
+function useCombatSkills(target) {
+  
+}

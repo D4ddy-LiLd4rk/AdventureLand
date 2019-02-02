@@ -12,6 +12,10 @@ function init() {
   
 }
 
+function useCombatSkills(target) {
+  
+}
+
 setInterval(function callForParty() {
   createParty();
 }, 3600000); //loop every hour

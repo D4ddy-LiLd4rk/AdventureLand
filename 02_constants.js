@@ -114,3 +114,13 @@ var DamageTypes;
   DamageTypes["Magical"] = "magical";
   DamageTypes["Physical"] = "physical";
 })(DamageTypes || (DamageTypes = {}));
+
+var MageSkills;
+(function (MageSkills) {
+    MageSkills["Blink"] = "blink";
+    MageSkills["ManaBurst"] = "burst";
+    MageSkills["ControlledManaBurst"] = "cburst";
+    MageSkills["Energize"] = "energize";
+    MageSkills["Light"] = "light";
+    MageSkills["Magiport"] = "magiport";
+})(MageSkills || (MageSkills = {}));
