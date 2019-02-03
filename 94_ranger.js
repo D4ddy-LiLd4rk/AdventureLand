@@ -69,7 +69,7 @@ function usePoisonArrow(target) {
  */
 function useSupershot(target) {
   if (parent.distance(target, character) <= character.range * 3 && target.hp >= calcSupershotDmg()) {
-    game_log("Sniping for " + calcSupershotDmg() + " dmg and " + parent.distance(target, character) + " distance", colorGreen);
+    game_log("Sniping for " + calcSupershotDmg() + " dmg and " + Math.round(parent.distance(target, character)) + " distance", colorGreen);
     actionText(parent.G.skills[RangerSkills.Supershot.name].name, colorGreen);
     use_skill(RangerSkills.Supershot.name, target);
     lastUse_Supershot = new Date();
