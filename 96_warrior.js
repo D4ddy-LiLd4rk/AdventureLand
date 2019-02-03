@@ -17,11 +17,26 @@ function init() {
   parent.walkingActive = true;
   parent.isPartyLeader = true;
   parent.partyLeader = Characters.Warrior; //character.name
-  
+
 }
 
 function useCombatSkills(target) {
-  
+
+  if (canUseAgitate() || canUseTaunt()) {
+    let used = false;
+
+    used = useAgitate();
+    if (!used) used = useTaunt(target);
+    if (used) {
+      if (canUseCleave()) {
+        useCleave();
+      }
+
+      if (canUseStomp()) {
+        useStomp();
+      }
+    }
+  }
 }
 
 setInterval(function callForParty() {
@@ -32,7 +47,15 @@ setInterval(function callForParty() {
  * Taunts all nearby monsters.
  */
 function useAgitate() {
+  let nearbyMonsters = getMonstersNearby(WarriorSkills.Agitate.range);
 
+  if (nearbyMonsters.length) {
+    game_log("Taunting nearby monsters!");
+    use_skill(WarriorSkills.Agitate.name);
+    lastUse_Agitate = new Date();
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -46,7 +69,9 @@ function useCharge() {
  * Swing your axe in a flurry to damage all enemies nearby!
  */
 function useCleave() {
-
+  game_log("Swinging my axe!");
+  use_skill(WarriorSkills.Cleave.name);
+  lastUse_Cleave = new Date();
 }
 
 /**
@@ -60,14 +85,22 @@ function useHardShell() {
  * Use your basher to Stomp the ground to Stun enemies nearby!
  */
 function useStomp() {
-
+  game_log("I'm an earthquake!");
+  use_skill(WarriorSkills.Stomp.name);
+  lastUse_Stomp = new Date();
 }
 
 /**
  * Taunts an enemy. Prevents players from escaping in pvp. Steals aggro from friendly targets.
  */
-function useTaunt() {
-
+function useTaunt(target) {
+  if (parent.distance(target, character) <= WarriorSkills.Taunt.range) {
+    game_log("Come at me bruh!");
+    use_skill(WarriorSkills.Taunt.name, target);
+    lastUse_Taunt = new Date();
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -75,4 +108,27 @@ function useTaunt() {
  */
 function useWarCry() {
 
+}
+
+function canUseCleave() {
+  return (mssince(lastUse_Cleave) > WarriorSkills.Cleave.cd
+    && character.mp > WarriorSkills.Cleave.mp
+    && character.level >= WarriorSkills.Cleave.level);
+}
+
+function canUseStomp() {
+  return (mssince(lastUse_Stomp) > WarriorSkills.Stomp.cd
+    && character.mp > WarriorSkills.Stomp.mp
+    && character.level >= WarriorSkills.Stomp.level);
+}
+
+function canUseAgitate() {
+  return (mssince(lastUse_Agitate) > WarriorSkills.Agitate.cd
+    && character.mp > WarriorSkills.Agitate.mp
+    && character.level >= WarriorSkills.Agitate.level);
+}
+
+function canUseTaunt() {
+  return (mssince(lastUse_Taunt) > WarriorSkills.Taunt.cd
+    && character.mp > WarriorSkills.Taunt.mp);
 }

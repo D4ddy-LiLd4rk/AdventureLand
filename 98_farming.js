@@ -32,7 +32,8 @@ setInterval(function () {
     // type: Type of the monsters, for example "goo", can be referenced from `show_json(G.monsters)` 
     min_xp: 100,
     max_att: 120,
-    type: monsterType
+    type: monsterType,
+    no_target: true
   };
   attackMonster(monster);
 

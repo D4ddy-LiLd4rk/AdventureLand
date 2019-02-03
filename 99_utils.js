@@ -65,3 +65,9 @@ function getPartyMembersIncludingSelf() {
 
   return partyMembers;
 }
+
+function getMonstersNearby(distance) {
+  if (!distance) distance = character.range;
+  return Object.values(parent.entities).filter(monster =>
+    monster.type === "monster" && parent.distance(monster, character) <= distance);
+}

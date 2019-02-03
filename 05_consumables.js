@@ -14,7 +14,7 @@ function restoreHealthOrMana() {
   if (safeties && mssince(lastPotion) < 600) return;
   var used = false;
   if (new Date() < parent.next_potion) return;
-  if (!used) used = useHealthPotion(character);
+  used = useHealthPotion(character);
   if (!used) used = useManaPotion(character);
   if (used) lastPotion = new Date();
 }

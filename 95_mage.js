@@ -38,6 +38,7 @@ function useBlink(target) {
  * Converts your entire mana pool to damage. Deals 0.5 magical damage for each MP.
  */
 function useManaBurst(target) {
+  game_log("Casting " + MageSkills.ManaBurst.name + " for " + calcManaBurstDmg() + " dmg");
   use_skill(MageSkills.ManaBurst.name, target);
   lastUse_ManaBurst = new Date();
 }
@@ -63,7 +64,8 @@ function useEnergize() {
   );
   partyMembers.sort((a, b) => a.mp / a.max_mp - b.mp / b.max_mp);
 	if(partyMembers.length){
-		use_skill(MageSkills.Energize.name, partyMembers[0]);
+    use_skill(MageSkills.Energize.name, partyMembers[0]);
+    game_log("Used " + MageSkills.Energize.name + " on " + partyMembers[0]);
     lastUse_Energize = new Date();
 	}    
 }
