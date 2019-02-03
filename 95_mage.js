@@ -30,6 +30,7 @@ function useCombatSkills(target) {
  * Teleport to a nearby location.
  */
 function useBlink(target) {
+  //for blink: use_skill("blink",[x,y])
   use_skill(MageSkills.Blink.name, target);
   lastUse_Blink = new Date();
 }

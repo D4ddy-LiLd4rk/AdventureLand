@@ -56,10 +56,12 @@ function useFiveShot(target) {
  * Fire a single low damage but poison coated arrow at your opponent.
  */
 function usePoisonArrow(target) {
+  if (character.items.includes("poison")) {
   game_log("Ah, sweet toxicity!", colorGreen);
   actionText(parent.G.skills[RangerSkills.PoisonArrow.name].name, colorGreen);
   use_skill(RangerSkills.PoisonArrow.name, target);
   lastUse_PoisonArrow = new Date();
+  }
 }
 
 /**
