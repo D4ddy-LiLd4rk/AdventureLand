@@ -119,7 +119,8 @@ function canUseCleave() {
 function canUseStomp() {
   return (mssince(lastUse_Stomp) > WarriorSkills.Stomp.cd
     && character.mp > WarriorSkills.Stomp.mp
-    && character.level >= WarriorSkills.Stomp.level);
+    && character.level >= WarriorSkills.Stomp.level
+    && parent.G.items[character.slots.mainhand.name].wtype === WeaponTypes.Basher);
 }
 
 function canUseAgitate() {
