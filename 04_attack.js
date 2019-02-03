@@ -19,7 +19,7 @@ function attackMonster(monster) {
   }
   else if (can_attack(target)) {
     set_message("Attacking");
-    attackMonster(target);
+    attackingMonster(target);
   }
 }
 
@@ -32,7 +32,7 @@ function getTargetMonster(monster) {
   return target;
 }
 
-function attackMonster(monster) {
+function attackingMonster(monster) {
   
   useCombatSkills(monster);
   
