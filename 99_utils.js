@@ -16,7 +16,7 @@ function isAbovePercent(current, max, percentage) {
 }
 
 function actionText(text, color) {
-  parent.d_text(text, character, {color:color});
+  parent.d_text(text, character, { color: color });
 }
 
 function roundBy(a, b) {
@@ -38,14 +38,30 @@ function createParty() {
     for (let character in party) {
       if (character === parent.partyLeader) continue;
       send_party_invite(character);
-    } 
+    }
   }
 }
 
-function on_party_invite(name){
+function on_party_invite(name) {
   accept_party_invite(name);
 }
 
-function on_party_request(name){
+function on_party_request(name) {
   accept_party_request(name);
+}
+
+function getPartyMembers() {
+  return Object.values(parent.entities).filter(char =>
+    char.type === "character" && !char.rip &&
+    char.party && char.party === character.party);
+}
+
+function getPartyMembersIncludingSelf() {
+  let partyMembers = Object.values(parent.entities).filter(char =>
+    char.type === "character" && !char.rip &&
+    char.party && char.party === character.party);
+
+  partyMembers.push(character);
+
+  return partyMembers;
 }

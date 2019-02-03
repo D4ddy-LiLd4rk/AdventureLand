@@ -117,10 +117,188 @@ var DamageTypes;
 
 var MageSkills;
 (function (MageSkills) {
-    MageSkills["Blink"] = "blink";
-    MageSkills["ManaBurst"] = "burst";
-    MageSkills["ControlledManaBurst"] = "cburst";
-    MageSkills["Energize"] = "energize";
-    MageSkills["Light"] = "light";
-    MageSkills["Magiport"] = "magiport";
+  MageSkills["Blink"] = {
+    name: "blink",
+    mp: 1600,
+    cd: 1200
+  };
+  MageSkills["ManaBurst"] = {
+    name: "burst",
+    cd: 6000
+  };
+  MageSkills["ControlledManaBurst"] = {
+    name: "cburst",
+    cd: 6000,
+    level: 75
+  };
+  MageSkills["Energize"] = {
+    name: "energize",
+    cd: 4000,
+    range: 320,
+    level: 20
+  };
+  MageSkills["Light"] = {
+    name: "light",
+    mp: 2000
+  };
+  MageSkills["Magiport"] = {
+    name: "magiport",
+    mp: 900
+  };
 })(MageSkills || (MageSkills = {}));
+
+var Merchantkills;
+(function (Merchantkills) {
+  Merchantkills["Blink"] = {
+    name: "blink"
+  };
+  Merchantkills["ManaBurst"] = {
+    name: "burst"
+  };
+  Merchantkills["ControlledManaBurst"] = {
+    name: "cburst"
+  };
+  Merchantkills["Energize"] = {
+    name: "energize"
+  };
+  Merchantkills["Light"] = {
+    name: "light"
+  };
+  Merchantkills["Magiport"] = {
+    name: "magiport"
+  };
+})(Merchantkills || (Merchantkills = {}));
+
+var PriestSkills;
+(function (PriestSkills) {
+  PriestSkills["Blink"] = {
+    name: "blink"
+  };
+  PriestSkills["ManaBurst"] = {
+    name: "burst"
+  };
+  PriestSkills["ControlledManaBurst"] = {
+    name: "cburst"
+  };
+  PriestSkills["Energize"] = {
+    name: "energize"
+  };
+  PriestSkills["Light"] = {
+    name: "light"
+  };
+  PriestSkills["Magiport"] = {
+    name: "magiport"
+  };
+})(PriestSkills || (PriestSkills = {}));
+
+var RangerSkills;
+(function (RangerSkills) {
+  RangerSkills["ThreeShot"] = {
+    name: "3shot",
+    mp: 300,
+    level: 60
+  };
+  RangerSkills["FourFingerTechnique"] = {
+    name: "4fingers",
+    mp: 260,
+    duration: 5000,
+    cd: 40000,
+    range: 120,
+    level: 64
+  };
+  RangerSkills["FiveShot"] = {
+    name: "5shot",
+    mp: 420,
+    level: 75
+  };
+  RangerSkills["PoisonArrow"] = {
+    name: "poisonarrow",
+    mp: 360,
+    cd: 300
+  };
+  RangerSkills["Supershot"] = {
+    name: "supershot",
+    mp: 400,
+    cd: 30000
+  };
+  RangerSkills["Track"] = {
+    name: "track",
+    mp: 80,
+    cd: 1600,
+    range: 1440
+  };
+})(RangerSkills || (RangerSkills = {}));
+
+var RogueSkills;
+(function (RogueSkills) {
+  RogueSkills["Blink"] = {
+    name: "blink"
+  };
+  RogueSkills["ManaBurst"] = {
+    name: "burst"
+  };
+  RogueSkills["ControlledManaBurst"] = {
+    name: "cburst"
+  };
+  RogueSkills["Energize"] = {
+    name: "energize"
+  };
+  RogueSkills["Light"] = {
+    name: "light"
+  };
+  RogueSkills["Magiport"] = {
+    name: "magiport"
+  };
+})(RogueSkills || (RogueSkills = {}));
+
+var WarriorSkills;
+(function (WarriorSkills) {
+  WarriorSkills["Agitate"] = {
+    name: "agitate",
+    mp: 420,
+    cd: 2200,
+    range: 320,
+    level: 68
+  };
+  WarriorSkills["Charge"] = {
+    name: "charge",
+    duration: 3200,
+    cd: 40000
+  };
+  WarriorSkills["Cleave"] = {
+    name: "cleave",
+    mp: 720,
+    cd: 1200,
+    range: 160,
+    level: 52
+  };
+  WarriorSkills["HardShell"] = {
+    name: "hardshell",
+    mp: 480,
+    duration: 8000,
+    cd: 16000,
+    level: 60
+  };
+  WarriorSkills["Stomp"] = {
+    name: "stomp",
+    mp: 120,
+    duration: 3200,
+    cd: 24000,
+    range: 400,
+    level: 52
+  };
+  WarriorSkills["Taunt"] = {
+    name: "taunt",
+    mp: 40,
+    cd: 3000,
+    range: 200
+  };
+  WarriorSkills["WarCry"] = {
+    name: "warcry",
+    mp: 320,
+    duration: 8000,
+    cd: 60000,
+    range: 600,
+    level: 70
+  };
+})(WarriorSkills || (WarriorSkills = {}));
