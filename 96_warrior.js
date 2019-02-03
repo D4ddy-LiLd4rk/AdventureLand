@@ -25,8 +25,8 @@ function useCombatSkills(target) {
   if (canUseAgitate() || canUseTaunt()) {
     let used = false;
 
-    used = useAgitate();
-    if (!used) used = useTaunt(target);
+    if (canUseAgitate()) used = useAgitate();
+    if (!used && canUseTaunt()) used = useTaunt(target);
     if (used) {
       if (canUseCleave()) {
         useCleave();

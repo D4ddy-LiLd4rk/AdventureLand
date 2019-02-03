@@ -9,7 +9,7 @@ let walkingActive = false;
 let isPartyLeader = false;
 let partyLeader = "";
 
-let monsterType = "crab";
+let monsterType = ""; //should be set ingame
 
 let goldThreshold = 75000;
 let goldTransferAmount = 5000;
