@@ -56,8 +56,8 @@ function useFiveShot(target) {
  * Fire a single low damage but poison coated arrow at your opponent.
  */
 function usePoisonArrow(target) {
-  game_log("Ah, sweet toxicity!", parent.colorGreen);
-  actionText(parent.G.skills[RangerSkills.PoisonArrow.name].name, parent.colorGreen);
+  game_log("Ah, sweet toxicity!", colorGreen);
+  actionText(parent.G.skills[RangerSkills.PoisonArrow.name].name, colorGreen);
   use_skill(RangerSkills.PoisonArrow.name, target);
   lastUse_PoisonArrow = new Date();
 }
@@ -67,8 +67,8 @@ function usePoisonArrow(target) {
  */
 function useSupershot(target) {
   if (parent.distance(target, character) <= character.range * 3 && target.hp >= calcSupershotDmg()) {
-    game_log("Sniping for " + calcSupershotDmg() + " dmg and " + parent.distance(target, character) + " distance", parent.colorGreen);
-    actionText(parent.G.skills[RangerSkills.Supershot.name].name, parent.colorGreen);
+    game_log("Sniping for " + calcSupershotDmg() + " dmg and " + parent.distance(target, character) + " distance", colorGreen);
+    actionText(parent.G.skills[RangerSkills.Supershot.name].name, colorGreen);
     use_skill(RangerSkills.Supershot.name, target);
     lastUse_Supershot = new Date();
   }

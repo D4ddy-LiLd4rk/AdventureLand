@@ -3,10 +3,10 @@
  * @source	https://github.com/D4ddy-LiLd4rk/AdventureLand
  */
 
-const colorGreen = "#1ed97c";
-const colorWhite = "#eff6ff";
-const colorShading = "#909cc0";
-const colorNavy = "#1c222b";
+const colorGreen = "#1ED97C";
+const colorWhite = "#EFF6FF";
+const colorShading = "#909CC0";
+const colorNavy = "#1C222B";
 
 
 var Characters;

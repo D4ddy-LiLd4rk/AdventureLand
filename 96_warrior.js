@@ -50,8 +50,8 @@ function useAgitate() {
   let nearbyMonsters = getMonstersNearby(WarriorSkills.Agitate.range);
 
   if (nearbyMonsters.length) {
-    game_log("Taunting nearby monsters!", parent.colorGreen);
-    actionText(parent.G.skills[WarriorSkills.Agitate.name].name, parent.colorGreen);
+    game_log("Taunting nearby monsters!", colorGreen);
+    actionText(parent.G.skills[WarriorSkills.Agitate.name].name, colorGreen);
     use_skill(WarriorSkills.Agitate.name);
     lastUse_Agitate = new Date();
     return true;
@@ -70,8 +70,8 @@ function useCharge() {
  * Swing your axe in a flurry to damage all enemies nearby!
  */
 function useCleave() {
-  game_log("Swinging my axe!", parent.colorGreen);
-  actionText(parent.G.skills[WarriorSkills.Cleave.name].name, parent.colorGreen);
+  game_log("Swinging my axe!", colorGreen);
+  actionText(parent.G.skills[WarriorSkills.Cleave.name].name, colorGreen);
   use_skill(WarriorSkills.Cleave.name);
   lastUse_Cleave = new Date();
 }
@@ -87,8 +87,8 @@ function useHardShell() {
  * Use your basher to Stomp the ground to Stun enemies nearby!
  */
 function useStomp() {
-  game_log("I'm an earthquake!", parent.colorGreen);
-  actionText(parent.G.skills[WarriorSkills.Stomp.name].name, parent.colorGreen);
+  game_log("I'm an earthquake!", colorGreen);
+  actionText(parent.G.skills[WarriorSkills.Stomp.name].name, colorGreen);
   use_skill(WarriorSkills.Stomp.name);
   lastUse_Stomp = new Date();
 }
@@ -98,8 +98,8 @@ function useStomp() {
  */
 function useTaunt(target) {
   if (parent.distance(target, character) <= WarriorSkills.Taunt.range) {
-    game_log("Come at me bruh!", parent.colorGreen);
-    actionText(parent.G.skills[WarriorSkills.Taunt.name].name, parent.colorGreen);
+    game_log("Come at me bruh!", colorGreen);
+    actionText(parent.G.skills[WarriorSkills.Taunt.name].name, colorGreen);
     use_skill(WarriorSkills.Taunt.name, target);
     lastUse_Taunt = new Date();
     return true;
