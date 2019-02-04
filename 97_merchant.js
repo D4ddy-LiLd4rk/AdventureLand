@@ -54,7 +54,7 @@ function needMoney() {
 }
 
 function withdrawMoney() {
-  bank_withdraw(Math.abs(character.gold - 300000));
+  bank_withdraw(getDifference(character.gold, 300000));
 }
 
 function needPotions() {
@@ -70,17 +70,17 @@ function buyPotions() {
   let quantitySmallMP = quantity("mpot0");
   let quantityBigMP = quantity("mpot1");
 
-  if (Math.abs(quantitySmallHP - 600) > 0) buy("hpot0", Math.abs(quantitySmallHP - 600));
-  if (Math.abs(quantityBigHP - 600) > 0) buy("hpot1", Math.abs(quantityBigHP - 600));
-  if (Math.abs(quantitySmallMP - 600) > 0) buy("mpot0", Math.abs(quantitySmallMP - 600));
-  if (Math.abs(quantityBigMP - 600) > 0) buy("mpot1", Math.abs(quantityBigMP - 600));
+  if (quantitySmallHP - 600 < 0) buy("hpot0", getDifference(quantitySmallHP, 600));
+  if (quantityBigHP - 600 < 0) buy("hpot1", getDifference(quantityBigHP, 600));
+  if (quantitySmallMP - 600 < 0) buy("mpot0", getDifference(quantitySmallMP, 600));
+  if (quantityBigMP - 600 < 0) buy("mpot1", getDifference(quantityBigMP, 600));
 }
 
 function deliverPotions(potions) {
-  if (getDifference(potions.inventory.hpot0.q, 200) > 0) send_item(potions.name, getItemSlot("hpot0"), getDifference(potions.inventory.hpot0.q, 200));
-  if (getDifference(potions.inventory.hpot1.q, 200) > 0) send_item(potions.name, getItemSlot("hpot1"), getDifference(potions.inventory.hpot1.q, 200));
-  if (getDifference(potions.inventory.mpot0.q, 200) > 0) send_item(potions.name, getItemSlot("mpot0"), getDifference(potions.inventory.mpot0.q, 200));
-  if (getDifference(potions.inventory.mpot1.q, 200) > 0) send_item(potions.name, getItemSlot("mpot1"), getDifference(potions.inventory.mpot1.q, 200));
+  if (potions.inventory.hpot0.q - 200 < 0) send_item(potions.name, getItemSlot("hpot0"), getDifference(potions.inventory.hpot0.q, 200));
+  if (potions.inventory.hpot1.q - 200 < 0) send_item(potions.name, getItemSlot("hpot1"), getDifference(potions.inventory.hpot1.q, 200));
+  if (potions.inventory.mpot0.q - 200 < 0) send_item(potions.name, getItemSlot("mpot0"), getDifference(potions.inventory.mpot0.q, 200));
+  if (potions.inventory.mpot1.q - 200 < 0) send_item(potions.name, getItemSlot("mpot1"), getDifference(potions.inventory.mpot1.q, 200));
 }
 
 function getItemSlot(name) {
