@@ -14,8 +14,22 @@ let monsterType = ""; //should be set ingame
 let goldThreshold = 75000;
 let goldTransferAmount = 5000;
 
+let justRespawned = false;
+let oldLocation = {};
+
 setInterval(function () {
 
+  if(character.rip) {
+    oldLocation = {x: character.real_x, y: character.real_y, map: character.map};
+    respawn();
+    justRespawned = true;
+    return 1;
+  }
+  if (justRespawned) {
+    smart_move(oldLocation);
+    justRespawned = false;
+    oldLocation = {};
+  }
   //initialize character class specific resources
   init();
 

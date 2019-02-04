@@ -50,6 +50,13 @@ function on_party_request(name) {
   accept_party_request(name);
 }
 
+function getPotionsInInventory() {
+  return Object.values(character.items).filter(item => 
+    item &&
+    parent.G.items[item.name].type === "pot"     
+  );
+}
+
 function getPartyMembers() {
   return Object.values(parent.entities).filter(char =>
     char.type === "character" && !char.rip &&

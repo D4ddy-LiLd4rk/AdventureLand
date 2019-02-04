@@ -38,21 +38,17 @@ function useManaPotion() {
 
 function checkHealthAndManaPotionsInInventory() {
   let found = false;
-  for (var index in character.items) {
-    if (character.items[index]) {
-      let itemName = character.items[index].name;
-      if (itemName && parent.G.items[itemName].type === ItemTypes.Potion) {
-        let itemStats = parent.G.items[itemName].gives;
-        if (itemStats) {
-          let type = itemStats[0][0];
-          let amount = itemStats[0][1];
+  let potions = getPotionsInInventory();
+  Object.values(potions).map(potion => {
+    let itemStats = parent.G.items[itemName].gives;
+    if (itemStats) {
+      let type = itemStats[0][0];
+      let amount = itemStats[0][1];
 
-          setPotionValues(type, amount);
-          found = true;
-        }
-      }
+      setPotionValues(type, amount);
+      found = true;
     }
-  }
+  });
   if (!found) {
     //set to default skill
     setPotionValues("hp", 50);

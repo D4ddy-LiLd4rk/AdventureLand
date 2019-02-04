@@ -6,16 +6,75 @@
 let movingToChar = false;
 let movingToBank = false;
 
+let justRespawned = false;
+let oldLocation = {};
+
+let coordsBooster = {x: 192, y:-538, map: main};
+
 function init() {
 
 }
 
 setInterval(function doMerchantStuff() {
-  if (isInsideBank()) {
-    depositGold();
-    depositItems();
+
+  if (character.rip) {
+    oldLocation = { x: character.real_x, y: character.real_y, map: character.map };
+    respawn();
+    justRespawned = true;
+    return 1;
   }
-}, 2000); //loop every 2 seconds
+  if (justRespawned) {
+    smart_move(oldLocation);
+    justRespawned = false;
+    oldLocation = {};
+  }
+
+  if (is_moving(character)) return;
+
+  init();
+
+  checkHealthAndManaPotionsInInventory();
+  restoreHealthOrMana();
+
+  fastTravelTown();
+
+  if (needMoney()) {
+    smart_move({ to: "bank", return: true }, function () { withdrawMoney(); });
+    return;
+  }
+
+  if (needPotions()) {
+    smart_move({ to: "potions", return: true }, function () { buyPotions(); });
+    return;
+  }
+}, 1000 / 4); //loop every 2 seconds
+
+function needMoney() {
+  return character.gold < 300000;
+}
+
+function withdrawMoney() {
+  bank_withdraw(Math.abs(character.gold - 300000));
+}
+
+function needPotions() {
+  return (quantity("hpot0") < 600
+    || quantity("hpot1") < 600
+    || quantity("mpot0") < 600
+    || quantity("mpot1") < 600);
+}
+
+function buyPotions() {
+  let quantitySmallHP = quantity("hpot0");
+  let quantityBigHP = quantity("hpot1");
+  let quantitySmallMP = quantity("mpot0");
+  let quantityBigMP = quantity("mpot1");
+
+  if (Math.abs(quantitySmallHP - 600) > 0) buy("hpot0", Math.abs(quantitySmallHP - 600));
+  if (Math.abs(quantityBigHP - 600) > 0) buy("hpot1", Math.abs(quantityBigHP - 600));
+  if (Math.abs(quantitySmallMP - 600) > 0) buy("mpot0", Math.abs(quantitySmallMP - 600));
+  if (Math.abs(quantityBigMP - 600) > 0) buy("mpot1", Math.abs(quantityBigMP - 600));
+}
 
 function on_cm(name, data) {
   if (!is_moving(character) || !get_player(name)) {
@@ -83,8 +142,8 @@ function isInsideBank() {
 }
 
 function depositGold() {
-  if (character.gold > 100000) {
-    bank_deposit(character.gold - 100000);
+  if (character.gold > 300000) {
+    bank_deposit(character.gold - 300000);
   }
 }
 
