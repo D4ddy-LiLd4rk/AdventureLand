@@ -45,6 +45,8 @@ setInterval(function doMerchantStuff() {
     smart_move({ to: "potions", return: true }, function () { buyPotions(); });
     return;
   }
+
+  smart_move({ to: "bank", return: true }, function () { depositGold(); depositItems(); });
 }, 1000 / 4); //loop every 2 seconds
 
 function needMoney() {
@@ -75,10 +77,10 @@ function buyPotions() {
 }
 
 function deliverPotions(potions) {
-  send_item(potions.name, getItemSlot("hpot0"), getDifference(potions.inventory.hpot0.q, 200));
-  send_item(potions.name, getItemSlot("hpot1"), getDifference(potions.inventory.hpot1.q, 200));
-  send_item(potions.name, getItemSlot("mpot0"), getDifference(potions.inventory.mpot0.q, 200));
-  send_item(potions.name, getItemSlot("mpot1"), getDifference(potions.inventory.mpot1.q, 200));
+  if (getDifference(potions.inventory.hpot0.q, 200) > 0) send_item(potions.name, getItemSlot("hpot0"), getDifference(potions.inventory.hpot0.q, 200));
+  if (getDifference(potions.inventory.hpot1.q, 200) > 0) send_item(potions.name, getItemSlot("hpot1"), getDifference(potions.inventory.hpot1.q, 200));
+  if (getDifference(potions.inventory.mpot0.q, 200) > 0) send_item(potions.name, getItemSlot("mpot0"), getDifference(potions.inventory.mpot0.q, 200));
+  if (getDifference(potions.inventory.mpot1.q, 200) > 0) send_item(potions.name, getItemSlot("mpot1"), getDifference(potions.inventory.mpot1.q, 200));
 }
 
 function getItemSlot(name) {
