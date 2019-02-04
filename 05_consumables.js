@@ -40,7 +40,7 @@ function checkHealthAndManaPotionsInInventory() {
   let found = false;
   let potions = getPotionsInInventory();
   Object.values(potions).map(potion => {
-    let itemStats = parent.G.items[itemName].gives;
+    let itemStats = parent.G.items[potion.name].gives;
     if (itemStats) {
       let type = itemStats[0][0];
       let amount = itemStats[0][1];

@@ -9,8 +9,6 @@ let movingToBank = false;
 let justRespawned = false;
 let oldLocation = {};
 
-let coordsBooster = {x: 192, y:-538, map: main};
-
 function init() {
 
 }
@@ -76,10 +74,24 @@ function buyPotions() {
   if (Math.abs(quantityBigMP - 600) > 0) buy("mpot1", Math.abs(quantityBigMP - 600));
 }
 
+function deliverPotions(potions) {
+  send_item(potions.name, getItemSlot("hpot0"), getDifference(potions.inventory.hpot0.q, 200));
+  send_item(potions.name, getItemSlot("hpot1"), getDifference(potions.inventory.hpot1.q, 200));
+  send_item(potions.name, getItemSlot("mpot0"), getDifference(potions.inventory.mpot0.q, 200));
+  send_item(potions.name, getItemSlot("mpot1"), getDifference(potions.inventory.mpot1.q, 200));
+}
+
+function getItemSlot(name) {
+  for (var i = 0; i < character.items.length; i++) {
+    if (character.items[i] && character.items[i].name == name) return i;
+  }
+  return -1;
+}
+
 function on_cm(name, data) {
   if (!is_moving(character) || !get_player(name)) {
     closeMerchStand();
-    smart_move({ x: data.x, y: data.y, map: data.map });
+    smart_move({ x: data.x, y: data.y, map: data.map }, function () { deliverPotions(data.potions); });
     moveToChar();
   }
 

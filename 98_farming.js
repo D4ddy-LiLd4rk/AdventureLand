@@ -62,7 +62,8 @@ setInterval(function callMerchant() {
     send_cm(Characters.Merchant, {
       x: character.real_x,
       y: character.real_y,
-      map: character.map
+      map: character.map,
+      potions: { name: character.name, inventory: { hpot0: { q: quantity("hpot0") }, hpot1: { q: quantity("hpot1") }, mpot0: { q: quantity("mpot0") }, mpot1: { q: quantity("mpot1") } } }
     });
 
     if (get_player(Characters.Merchant)) {
