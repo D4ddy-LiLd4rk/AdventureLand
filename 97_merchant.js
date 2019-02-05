@@ -178,7 +178,7 @@ function depositItems() {
   if (character.esize === 42) return; //empty inventory
   for (item in character.items) {
     if (item == 0) continue;
-    if (!character.items[item] && parent.G.items[character.items[item].name].type !== ItemTypes.Potion) continue;
+    if (!character.items[item] || parent.G.items[character.items[item].name].type !== ItemTypes.Potion) continue;
     bank_store(item);
   }
 }
