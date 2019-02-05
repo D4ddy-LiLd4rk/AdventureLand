@@ -55,7 +55,7 @@ setInterval(function doMerchantStuff() {
   if (!is_moving(character)) {
     smart_move({ to: "bank", return: true }, function () { depositGold(); depositItems(); });
   }
-}, 1000 / 4); //loop every 2 seconds
+}, 5000); //loop every 5 seconds
 
 function needMoney() {
   return character.gold < 300000;
