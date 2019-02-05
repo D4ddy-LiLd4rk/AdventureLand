@@ -40,19 +40,21 @@ setInterval(function doMerchantStuff() {
   checkHealthAndManaPotionsInInventory();
   restoreHealthOrMana();
 
-  fastTravelTown();
+  if (!is_moving(character)) fastTravelTown();
 
-  if (needMoney()) {
+  if (needMoney() && !is_moving(character)) {
     smart_move({ to: "bank", return: true }, function () { withdrawMoney(); });
     return;
   }
 
-  if (needPotions()) {
+  if (needPotions() && !is_moving(character)) {
     smart_move({ to: "potions", return: true }, function () { buyPotions(); });
     return;
   }
 
-  smart_move({ to: "bank", return: true }, function () { depositGold(); depositItems(); });
+  if (!is_moving(character)) {
+    smart_move({ to: "bank", return: true }, function () { depositGold(); depositItems(); });
+  }
 }, 1000 / 4); //loop every 2 seconds
 
 function needMoney() {
@@ -179,7 +181,7 @@ function depositItems() {
   for (item in character.items) {
     if (item == 0) continue;
     if (!character.items[item]) continue;
-    if(parent.G.items[character.items[item].name].type !== ItemTypes.Potion) continue;
+    if(parent.G.items[character.items[item].name].type === ItemTypes.Potion) continue;
     bank_store(item);
   }
 }

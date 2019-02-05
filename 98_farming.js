@@ -65,13 +65,6 @@ setInterval(function callMerchant() {
       map: character.map,
       potions: { name: character.name, inventory: { hpot0: { q: quantity("hpot0") }, hpot1: { q: quantity("hpot1") }, mpot0: { q: quantity("mpot0") }, mpot1: { q: quantity("mpot1") } } }
     });
-
-    if (get_player(Characters.Merchant)) {
-      sendGoldToMerchant()
-      sendItemsToMerchant()
-      send_cm(Characters.Merchant, "done");
-    }
-
   };
 
 }, 60000); //loop every 2 seconds
@@ -79,6 +72,8 @@ setInterval(function callMerchant() {
 function on_cm(name, data) {
   if (name === Characters.Warrior || name === Characters.Mage || name === Characters.Ranger || name === Characters.Merchant) {
     if (name === Characters.Merchant && data === "askPotions") {
+      sendGoldToMerchant();
+      sendItemsToMerchant();
       send_cm(Characters.Merchant, {
         potions: { name: character.name, inventory: { hpot0: { q: quantity("hpot0") }, hpot1: { q: quantity("hpot1") }, mpot0: { q: quantity("mpot0") }, mpot1: { q: quantity("mpot1") } } }
       }
