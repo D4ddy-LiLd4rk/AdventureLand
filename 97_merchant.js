@@ -83,14 +83,14 @@ function buyPotions() {
 }
 
 function deliverPotions() {
-  for (member in potions) {
+  Object.values(potions).forEach(function(member) {
     if (get_player(member)) {
-  if (member.inventory.hpot0.q - 200 < 0) send_item(member.name, getItemSlot("hpot0"), getDifference(member.inventory.hpot0.q, 200));
-  if (member.inventory.hpot1.q - 200 < 0) send_item(member.name, getItemSlot("hpot1"), getDifference(member.inventory.hpot1.q, 200));
-  if (member.inventory.mpot0.q - 200 < 0) send_item(member.name, getItemSlot("mpot0"), getDifference(member.inventory.mpot0.q, 200));
-  if (member.inventory.mpot1.q - 200 < 0) send_item(member.name, getItemSlot("mpot1"), getDifference(member.inventory.mpot1.q, 200));
+      if (member.inventory.hpot0.q - 200 < 0) send_item(member.name, getItemSlot("hpot0"), getDifference(member.inventory.hpot0.q, 200));
+      if (member.inventory.hpot1.q - 200 < 0) send_item(member.name, getItemSlot("hpot1"), getDifference(member.inventory.hpot1.q, 200));
+      if (member.inventory.mpot0.q - 200 < 0) send_item(member.name, getItemSlot("mpot0"), getDifference(member.inventory.mpot0.q, 200));
+      if (member.inventory.mpot1.q - 200 < 0) send_item(member.name, getItemSlot("mpot1"), getDifference(member.inventory.mpot1.q, 200));
     }
-  }
+  });
 }
 
 function getItemSlot(name) {
@@ -178,7 +178,8 @@ function depositItems() {
   if (character.esize === 42) return; //empty inventory
   for (item in character.items) {
     if (item == 0) continue;
-    if (!character.items[item] || parent.G.items[character.items[item].name].type !== ItemTypes.Potion) continue;
+    if (!character.items[item]) continue;
+    if(parent.G.items[character.items[item].name].type !== ItemTypes.Potion) continue;
     bank_store(item);
   }
 }
