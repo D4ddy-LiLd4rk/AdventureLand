@@ -76,6 +76,17 @@ setInterval(function callMerchant() {
 
 }, 60000); //loop every 2 seconds
 
+function on_cm(name, data) {
+  if (name === Characters.Warrior || name === Characters.Mage || name === Characters.Ranger || name === Characters.Merchant) {
+    if (name === Characters.Merchant && data === "askPotions") {
+      send_cm(Characters.Merchant, {
+        potions: { name: character.name, inventory: { hpot0: { q: quantity("hpot0") }, hpot1: { q: quantity("hpot1") }, mpot0: { q: quantity("mpot0") }, mpot1: { q: quantity("mpot1") } } }
+      }
+      );
+    }
+  }
+}
+
 function hasGoldOrItems() {
   return ((character.gold > goldThreshold) || (character.esize + getNumberOfPotions < 42));
 }

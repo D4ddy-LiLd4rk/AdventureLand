@@ -9,6 +9,12 @@ let movingToBank = false;
 let justRespawned = false;
 let oldLocation = {};
 
+let potions = {
+  D4ddy001: { name: "D4ddy001", inventory: { hpot0: { q: -1 }, hpot1: { q: -1 }, mpot0: { q: -1 }, mpot1: { q: -1 } } },
+  D4ddy002: { name: "D4ddy002", inventory: { hpot0: { q: -1 }, hpot1: { q: -1 }, mpot0: { q: -1 }, mpot1: { q: -1 } } },
+  D4ddy003: { name: "D4ddy003", inventory: { hpot0: { q: -1 }, hpot1: { q: -1 }, mpot0: { q: -1 }, mpot1: { q: -1 } } }
+};
+
 function init() {
 
 }
@@ -76,11 +82,15 @@ function buyPotions() {
   if (quantityBigMP - 600 < 0) buy("mpot1", getDifference(quantityBigMP, 600));
 }
 
-function deliverPotions(potions) {
-  if (potions.inventory.hpot0.q - 200 < 0) send_item(potions.name, getItemSlot("hpot0"), getDifference(potions.inventory.hpot0.q, 200));
-  if (potions.inventory.hpot1.q - 200 < 0) send_item(potions.name, getItemSlot("hpot1"), getDifference(potions.inventory.hpot1.q, 200));
-  if (potions.inventory.mpot0.q - 200 < 0) send_item(potions.name, getItemSlot("mpot0"), getDifference(potions.inventory.mpot0.q, 200));
-  if (potions.inventory.mpot1.q - 200 < 0) send_item(potions.name, getItemSlot("mpot1"), getDifference(potions.inventory.mpot1.q, 200));
+function deliverPotions() {
+  for (member in potions) {
+    if (get_player(member)) {
+  if (member.inventory.hpot0.q - 200 < 0) send_item(member.name, getItemSlot("hpot0"), getDifference(member.inventory.hpot0.q, 200));
+  if (member.inventory.hpot1.q - 200 < 0) send_item(member.name, getItemSlot("hpot1"), getDifference(member.inventory.hpot1.q, 200));
+  if (member.inventory.mpot0.q - 200 < 0) send_item(member.name, getItemSlot("mpot0"), getDifference(member.inventory.mpot0.q, 200));
+  if (member.inventory.mpot1.q - 200 < 0) send_item(member.name, getItemSlot("mpot1"), getDifference(member.inventory.mpot1.q, 200));
+    }
+  }
 }
 
 function getItemSlot(name) {
@@ -90,16 +100,19 @@ function getItemSlot(name) {
   return -1;
 }
 
-function on_cm(name, data) {
-  if (!is_moving(character) || !get_player(name)) {
-    closeMerchStand();
-    smart_move({ x: data.x, y: data.y, map: data.map }, function () { deliverPotions(data.potions); });
-    moveToChar();
-  }
+function askForPotions() {
+  send_cm([Characters.Warrior, Characters.Mage, Characters.Ranger], "askPotions");
+}
 
-  if (data == "done") {
-    travelTo("bank", true);
-    moveToBank();
+function on_cm(name, data) {
+  if (name === Characters.Warrior || name === Characters.Mage || name === Characters.Ranger || name === Characters.Merchant) {
+    if (!is_moving(character) || !get_player(name) && "x" in data) {
+      smart_move({ x: data.x, y: data.y, map: data.map }, function () { askForPotions() });
+    }
+    if ("potions" in data) {
+      potions[name] = data.potions;
+      deliverPotions();
+    }
   }
 }
 
@@ -165,7 +178,7 @@ function depositItems() {
   if (character.esize === 42) return; //empty inventory
   for (item in character.items) {
     if (item == 0) continue;
-    if (!character.items[item]) continue;
+    if (!character.items[item] && parent.G.items[character.items[item].name].type !== ItemTypes.Potion) continue;
     bank_store(item);
   }
 }
