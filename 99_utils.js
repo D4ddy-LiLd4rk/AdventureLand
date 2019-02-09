@@ -44,7 +44,7 @@ function createParty() {
 
     for (let index in party) {
       if (party[index] === parent.partyLeader) continue;
-      send_party_invite(party[index]);
+      if (!parent.party[party[index]]) send_party_invite(party[index]);
     }
 }
 
