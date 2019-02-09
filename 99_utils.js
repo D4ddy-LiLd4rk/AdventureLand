@@ -35,7 +35,7 @@ function partyHandler() {
   if (parent.isPartyLeader) {
     createParty();
   } else {
-    if (character.party !== parent.partyLeader) leaveParty();
+    if (character.party && character.party !== parent.partyLeader) leaveParty();
   }
 }
 
@@ -49,11 +49,11 @@ function createParty() {
 }
 
 function on_party_invite(name) {
-  if (parent.partyLeader === name) accept_party_invite(name);
+  if (!character.party && parent.partyLeader === name) accept_party_invite(name);
 }
 
 function on_party_request(name) {
-  if (parent.partyLeader === name) accept_party_request(name);
+  if (!character.party && parent.partyLeader === name) accept_party_request(name);
 }
 
 function leaveParty() {
