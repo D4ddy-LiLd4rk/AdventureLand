@@ -42,9 +42,9 @@ function partyHandler() {
 function createParty() {
     let party = [Characters.Warrior, Characters.Mage, Characters.Ranger, Characters.Merchant];
 
-    for (let character in party) {
-      if (character === parent.partyLeader) continue;
-      send_party_invite(character);
+    for (let index in party) {
+      if (party[index] === parent.partyLeader) continue;
+      send_party_invite(party[index]);
     }
 }
 
