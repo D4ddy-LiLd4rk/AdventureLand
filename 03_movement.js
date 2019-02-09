@@ -8,7 +8,7 @@ function fastTravelTown() {
 }
 
 function travelTo(destination, destinationInTown) {
-  if (destinationInTown) fastTravelTown();
+  if (destinationInTown) smart.use_town = true;
   smart_move({ to: destination });
 
   /*switch (destination) {

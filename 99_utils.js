@@ -31,23 +31,33 @@ function roundUpBy(a, b) {
   return Math.ceil(a / b) * b;
 }
 
-function createParty() {
+function partyHandler() {
   if (parent.isPartyLeader) {
+    createParty();
+  } else {
+    if (character.party !== parent.partyLeader) leaveParty();
+  }
+}
+
+function createParty() {
     let party = [Characters.Warrior, Characters.Mage, Characters.Ranger, Characters.Merchant];
 
     for (let character in party) {
       if (character === parent.partyLeader) continue;
       send_party_invite(character);
     }
-  }
 }
 
 function on_party_invite(name) {
-  accept_party_invite(name);
+  if (parent.partyLeader === name) accept_party_invite(name);
 }
 
 function on_party_request(name) {
-  accept_party_request(name);
+  if (parent.partyLeader === name) accept_party_request(name);
+}
+
+function leaveParty() {
+  parent.socket.emit("party", {event: "leave"});
 }
 
 function getPotionsInInventory() {
@@ -59,15 +69,12 @@ function getPotionsInInventory() {
 
 function getPartyMembers() {
   return Object.values(parent.entities).filter(char =>
-    char.type === "character" && !char.rip &&
+    is_character(char) && !char.rip &&
     char.party && char.party === character.party);
 }
 
 function getPartyMembersIncludingSelf() {
-  let partyMembers = Object.values(parent.entities).filter(char =>
-    char.type === "character" && !char.rip &&
-    char.party && char.party === character.party);
-
+  let partyMembers = getPartyMembers();
   partyMembers.push(character);
 
   return partyMembers;
@@ -76,5 +83,35 @@ function getPartyMembersIncludingSelf() {
 function getMonstersNearby(distance) {
   if (!distance) distance = character.range;
   return Object.values(parent.entities).filter(monster =>
-    monster.type === "monster" && parent.distance(monster, character) <= distance);
+    is_monster(monster) && parent.distance(monster, character) <= distance);
 }
+/*
+function bank_store(num, pack, pack_slot) {
+  // bank_store(0) - Stores the first item in inventory in the first/best spot in bank
+  // parent.socket.emit("bank",{operation:"swap",pack:pack,str:num,inv:num});
+  // Above call can be used manually to pull items, swap items and so on - str is from 0 to 41, it's the storage slot #
+  // parent.socket.emit("bank",{operation:"swap",pack:pack,str:num,inv:-1}); <- this call would pull an item to the first inventory slot available
+  // pack is one of ["items0","items1","items2","items3","items4","items5","items6","items7"]
+  if (!character.bank) return game_log("Not inside the bank");
+  if (!character.items[num]) return game_log("No item in that spot");
+  if (!pack_slot) pack_slot = -1; // the server interprets -1 as first slot available
+  if (!pack) {
+    var cp = undefined, cs = undefined;
+    bank_packs.forEach(function (cpack) {
+      if (!character.bank[cpack]) return;
+      for (var i = 0; i < 42; i++) {
+        if (pack) return;
+        if (can_stack(character.bank[cpack][i], character.items[num])) // the item we want to store and this bank item can stack - best case scenario
+        {
+          pack = cpack;
+        }
+        if (!character.bank[cpack][i] && !cp) {
+          cp = cpack;
+        }
+      }
+    });
+    if (!pack && !cp) return game_log("Bank is full!");
+    if (!pack) pack = cp;
+  }
+  parent.socket.emit("bank", { operation: "swap", pack: pack, str: -1, inv: num });
+}*/

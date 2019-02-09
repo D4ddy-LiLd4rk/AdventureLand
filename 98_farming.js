@@ -21,7 +21,7 @@ setInterval(function () {
 
   if(character.rip) {
     oldLocation = {x: character.real_x, y: character.real_y, map: character.map};
-    respawn();
+    setTimeout(respawn,15000);
     justRespawned = true;
     return 1;
   }
@@ -32,6 +32,8 @@ setInterval(function () {
   }
   //initialize character class specific resources
   init();
+
+  partyHandler();
 
   checkHealthAndManaPotionsInInventory();
   restoreHealthOrMana();

@@ -23,7 +23,7 @@ setInterval(function doMerchantStuff() {
 
   if (character.rip) {
     oldLocation = { x: character.real_x, y: character.real_y, map: character.map };
-    respawn();
+    setTimeout(respawn,15000);
     justRespawned = true;
     return 1;
   }
@@ -36,6 +36,8 @@ setInterval(function doMerchantStuff() {
   if (is_moving(character)) return;
 
   init();
+
+  partyHandler();
 
   checkHealthAndManaPotionsInInventory();
   restoreHealthOrMana();
@@ -55,7 +57,7 @@ setInterval(function doMerchantStuff() {
   if (!is_moving(character)) {
     smart_move({ to: "bank", return: true }, function () { depositGold(); depositItems(); });
   }
-}, 5000); //loop every 5 seconds
+}, 1000 / 4); //loop every 5 seconds
 
 function needMoney() {
   return character.gold < 300000;
@@ -86,11 +88,11 @@ function buyPotions() {
 
 function deliverPotions() {
   Object.values(potions).forEach(function(member) {
-    if (get_player(member)) {
-      if (member.inventory.hpot0.q - 200 < 0) send_item(member.name, getItemSlot("hpot0"), getDifference(member.inventory.hpot0.q, 200));
-      if (member.inventory.hpot1.q - 200 < 0) send_item(member.name, getItemSlot("hpot1"), getDifference(member.inventory.hpot1.q, 200));
-      if (member.inventory.mpot0.q - 200 < 0) send_item(member.name, getItemSlot("mpot0"), getDifference(member.inventory.mpot0.q, 200));
-      if (member.inventory.mpot1.q - 200 < 0) send_item(member.name, getItemSlot("mpot1"), getDifference(member.inventory.mpot1.q, 200));
+    if (get_player(member.name)) {
+      if (member.inventory.hpot0.q != -1 && member.inventory.hpot0.q - 200 < 0) send_item(member.name, getItemSlot("hpot0"), getDifference(member.inventory.hpot0.q, 200));
+      if (member.inventory.hpot1.q != -1 && member.inventory.hpot1.q - 200 < 0) send_item(member.name, getItemSlot("hpot1"), getDifference(member.inventory.hpot1.q, 200));
+      if (member.inventory.mpot0.q != -1 && member.inventory.mpot0.q - 200 < 0) send_item(member.name, getItemSlot("mpot0"), getDifference(member.inventory.mpot0.q, 200));
+      if (member.inventory.mpot1.q != -1 && member.inventory.mpot1.q - 200 < 0) send_item(member.name, getItemSlot("mpot1"), getDifference(member.inventory.mpot1.q, 200));
     }
   });
 }
@@ -185,3 +187,10 @@ function depositItems() {
     bank_store(item);
   }
 }
+
+add_bottom_button(99, "Sell Items", function() {
+  let i = prompt("Ab Slot#", 5);
+  for (i; i < 42; i++) {
+    sell(i);
+  }
+});
