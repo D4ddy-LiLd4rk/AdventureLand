@@ -9,6 +9,8 @@ let movingToBank = false;
 let justRespawned = false;
 let oldLocation = {};
 
+let isPartyLeader = false;
+
 let potions = {
   D4ddy001: { name: "D4ddy001", inventory: { hpot0: { q: -1 }, hpot1: { q: -1 }, mpot0: { q: -1 }, mpot1: { q: -1 } } },
   D4ddy002: { name: "D4ddy002", inventory: { hpot0: { q: -1 }, hpot1: { q: -1 }, mpot0: { q: -1 }, mpot1: { q: -1 } } },

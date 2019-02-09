@@ -7,7 +7,6 @@ let attackActive = false;
 let walkingActive = false;
 
 let isPartyLeader = false;
-let partyLeader = "";
 
 let monsterType = ""; //should be set ingame
 
