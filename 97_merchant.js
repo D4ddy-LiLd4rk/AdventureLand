@@ -46,6 +46,11 @@ setInterval(function doMerchantStuff() {
 
   if (!is_moving(character)) fastTravelTown();
 
+  if (character.esize < 5 && !is_moving(character)) {
+    smart_move({ to: "potions", return: true }, function () { sellGarbage(); });
+    return;
+  }
+
   if (needMoney() && !is_moving(character)) {
     smart_move({ to: "bank", return: true }, function () { withdrawMoney(); });
     return;
@@ -119,6 +124,15 @@ function on_cm(name, data) {
       potions[name] = data.potions;
       deliverPotions();
     }
+  }
+}
+
+function sellGarbage() {
+  for (var i = 5; i < 42; i++) {
+    if (character.items[i] 
+      && (character.items[i].name === "hpbelt" || character.items[i].name === "hpamulet" || character.items[i].name === "ringsj")) {
+        sell(i);
+      }
   }
 }
 
