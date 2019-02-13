@@ -57,7 +57,6 @@ function useControlledManaBurst(target) {
  * Transfers mana to a target. As a side effect the target gains high attack speed for a short duration.
  */
 function useEnergize() {
-  let target;
   let partyMembers = getPartyMembers();
   
   partyMembers = Object.values(partyMembers).filter(char =>

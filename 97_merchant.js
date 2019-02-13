@@ -2,6 +2,9 @@
  * @author	D4ddy-LiLd4rk
  * @source	https://github.com/D4ddy-LiLd4rk/AdventureLand
  */
+let lastUse_Courage = new Date(0);
+let lastUse_Luck = new Date(0);
+let lastUse_ThrowStuff = new Date(0);
 
 let movingToChar = false;
 let movingToBank = false;
@@ -46,7 +49,7 @@ setInterval(function doMerchantStuff() {
 
   if (!is_moving(character)) fastTravelTown();
 
-  if (character.esize < 5 && !is_moving(character)) {
+  if (!is_moving(character)) {
     smart_move({ to: "potions", return: true }, function () { sellGarbage(); });
     return;
   }
@@ -118,7 +121,7 @@ function askForPotions() {
 function on_cm(name, data) {
   if (name === Characters.Warrior || name === Characters.Mage || name === Characters.Ranger || name === Characters.Merchant) {
     if (!is_moving(character) || !get_player(name) && "x" in data) {
-      smart_move({ x: data.x, y: data.y, map: data.map }, function () { askForPotions() });
+      smart_move({ x: data.x, y: data.y, map: data.map }, function () { askForPotions(); useLuck(); });
     }
     if ("potions" in data) {
       potions[name] = data.potions;
@@ -202,6 +205,51 @@ function depositItems() {
     if(parent.G.items[character.items[item].name].type === ItemTypes.Potion) continue;
     bank_store(item);
   }
+}
+
+/**
+ * When you sense danger, you know what to do...
+ */
+function useCourage() {
+  use_skill(Merchantkills.Courage.name);
+  lastUse_Courage = new Date();
+}
+
+/**
+ * Buff a target to increase their luck. 2% chance for you to receive a duplicate of their looted items!
+ */
+function useLuck() {  
+  let partyMembers = getPartyMembers();
+  
+  partyMembers = Object.values(partyMembers).filter(char =>
+		parent.distance(char, character) <= Merchantkills.Luck.range
+  );
+	partyMembers.forEach(function (member) {
+    actionText(parent.G.skills[Merchantkills.Luck.name].name, colorGreen);
+    use_skill(Merchantkills.Luck.name, member.name);
+    game_log("Used " + parent.G.skills[Merchantkills.Luck.name].name + " on " + member.name, colorGreen);
+    lastUse_Luck = new Date();
+  });    
+}
+
+/**
+ * Terrified? Just throw whatever you can find at your opponent!
+ */
+function useThrowStuff(target) {
+  use_skill(Merchantkills.ThrowStuff.name, target);
+  lastUse_ThrowStuff = new Date();
+}
+
+function canUseCourage() {
+  return (mssince(lastUse_Courage) > Merchantkills.Courage.cd && character.level >= Merchantkills.Courage.level);
+}
+
+function canUseLuck() {
+  return (mssince(lastUse_Luck) > Merchantkills.Luck.cd && character.level >= Merchantkills.Luck.level);
+}
+
+function canUseThrowStuff() {
+  return (mssince(lastUse_ThrowStuff) > Merchantkills.ThrowStuff.cd && character.level >= Merchantkills.ThrowStuff.level);
 }
 
 add_bottom_button(99, "Sell Items", function() {

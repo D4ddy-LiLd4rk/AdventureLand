@@ -155,23 +155,25 @@ var MageSkills;
 
 var Merchantkills;
 (function (Merchantkills) {
-  Merchantkills["Blink"] = {
-    name: "blink"
+  Merchantkills["Courage"] = {
+    name: "mcourage",
+    mp: 2400,
+    cd: 2000,
+    level: 70
   };
-  Merchantkills["ManaBurst"] = {
-    name: "burst"
+  Merchantkills["Luck"] = {
+    name: "mluck",
+    mp: 10,
+    cd: 100,
+    range: 320,
+    level: 40
   };
-  Merchantkills["ControlledManaBurst"] = {
-    name: "cburst"
-  };
-  Merchantkills["Energize"] = {
-    name: "energize"
-  };
-  Merchantkills["Light"] = {
-    name: "light"
-  };
-  Merchantkills["Magiport"] = {
-    name: "magiport"
+  Merchantkills["ThrowStuff"] = {
+    name: "throw",
+    mp: 200,
+    cd: 400,
+    range: 200,
+    level: 60
   };
 })(Merchantkills || (Merchantkills = {}));
 
